@@ -9,6 +9,8 @@
   "author": "bigchsta62",
   "license": "ISC",
   "dependencies": {
-    "inquirer": "^6.5.2"
+    "cmdify": "0.0.4",
+    "inquirer": "^6.5.2",
+    "inquirer-select-line": "^1.1.3"
   }
 }
