@@ -31,18 +31,18 @@ const questions = [
     //     }
     // },
     {
-        type: 'input',
         name: 'install',
+        type: 'input',
         message: 'How is this installed? (leave blank if not necessary)'
     },
     {
-        type: 'input',
         name: 'usage',
+        type: 'input',
         message: 'What will this be used for?'
     },
     {
+        name: 'license',
         type: 'checkbox',
-        name: 'use',
         message: 'Please select a License (use up or down arrow to highlight, then spacebar',
         choices: [
             { name: 'MIT License' },
@@ -59,13 +59,13 @@ const questions = [
         },
     },
     {
-        type: 'confirm',
         name: 'contributors',
+        type: 'confirm',
         message: 'Are there any other contributors?'
     },
     {
+        name: 'coPilot',
         type: 'input',
-        name: 'help',
         message: 'Please list each contributor separated by a comma',
         when: function (answers) {
             return answers.contributors;
@@ -76,50 +76,76 @@ const questions = [
 
 
 
-    
+
 ];
 
 function init() {
-inquirer
-    .prompt(questions)
-    .then(answers => {
-
-        console.log(answers.use);
-        console.log(answers);
-        generateMarkdown(answers);
-        const fileName = `${answers.title}` + '.md'
-        console.log(fileName);
-        writeToFile(fileName, answers);
-    })
-    .catch(error => {
-        if (error.isTtyError) {
-            // Prompt couldn't be rendered in the current environment
-        } else {
-            // Something else when wrong
-        }
-    });
-// function to write README file
-function writeToFile(fileName, answers) {
-    fs.appendFile(fileName,
-        `# ${answers.title}` +
-        '\n' +
-        '\n' +
-        `## ${answers.description}` +
-        '\n' +
-        '\n' +
-        `### ${answers.use}`,
-        function (err) {
-            if (err) {
-                console.log(err);
-            }
-            else {
-                console.log("Commit logged!");
+    inquirer
+        .prompt(questions)
+        .then(answers => {
+            console.log(answers.license);
+            // console.log(answers);
+            generateMarkdown(answers);
+            const fileName = `${answers.title}` + '.md'
+            // console.log(fileName);
+            writeToFile(fileName, answers);
+        })
+        .catch(error => {
+            if (error.isTtyError) {
+                // Prompt couldn't be rendered in the current environment
+            } else {
+                // Something else when wrong
             }
         });
+    // function to write README file
+    function writeToFile(fileName, answers) {
+        let licenseBDG = []
+        if (answers.license[0] === 'MIT License'){
+            licenseBDG.push(
+                '[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)') 
+         console.log(licenseBDG);
+        }else{
+            console.log('nerp!');
+        };
+        fs.appendFile(fileName,
+            `# ${answers.title}` +
+            '\n' +
+            licenseBDG +
+            '\n' +
+            `## ${answers.description}` +
+            '\n' +
+            '\n' +
+            `### ${answers.contents}` + 
+            '\n' +
+            '\n' +
+            `### ${answers.install}` +
+            '\n' +
+            '\n' +
+            `### ${answers.usage}` +
+            '\n' +
+            '\n' +
+            `### ${answers.license}` +
+            '\n' +
+            '\n' +
+            `### ${answers.coPilot}` +
+            '\n' +
+            '\n' ,
+            // `### ${answers.tests}`,
+            // '\n' +
+            // '\n' +
+            // `### ${answers.install}`,
+            function (err) {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    console.log("Commit logged!");
+                }
+            });
 
-}
+    }
 
-// function to initialize program
+    // function to initialize program
 
 }
 
