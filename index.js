@@ -9,8 +9,6 @@ const table = [
     '* [Questions](#questions)' + '\n'
 ];
 
-
-
 // array of questions for user
 const questions = [
     {
@@ -27,7 +25,6 @@ const questions = [
         name: 'description',
         type: 'input',
         message: 'PLease provide a brief description.'
-
     },
     {
         name: 'install',
@@ -79,10 +76,8 @@ const questions = [
             if (text.split('\n').length < 3) {
                 return 'Must be at least 3 lines.';
             }
-
             return true;
         },
-
     },
     {
         name: 'tests',
@@ -99,16 +94,13 @@ const questions = [
         name: 'gitHub',
         type: 'input',
         message: 'Please provide your Github username'
-
     },
     {
         name: 'email',
         type: 'input',
         message: 'Please provide your email address',
         validate: function (email) {
-
             valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
-
             if (valid) {
                 console.log("Thank you");
                 return true;
@@ -117,7 +109,6 @@ const questions = [
                 return false;
             }
         },
-
     },
     {
         type: 'confirm',
@@ -126,7 +117,7 @@ const questions = [
         default: true,
     },
 ];
-
+//Initializes Command Line Interface(CLI)
 function init() {
     inquirer
         .prompt(questions)
@@ -159,39 +150,30 @@ function init() {
             licenseBDG.push('[![GPL license](https://img.shields.io/badge/License-GPL-blue.svg)](http://perso.crans.org/besson/LICENSE.html)')
         };
         if (lic.includes('NONE')) {
-            licenseBDG.push('None')            
+            licenseBDG.push('None')
         };
         const licJoin = lic.join(', ');
 
+        //This writes all the answers and formatting to a .md file
+        //and will create one if it doesn't exist
         fs.appendFile(fileName,
             `# ${answers.title}` + licenseBDG + '\n' + '\n' +
-
             `## ${answers.description}` + '\n' + '\n' +
-
             `${table}` + '\n' + '\n' +
-
             '## Installation' + '\n' +
             ` ${answers.install}` + '\n' + '\n' +
-
             '## Usage' + '\n' +
-
             ` ${answers.usage}` + '\n' + '\n' +
-
             '## License' + '\n' +
             'This application is covered under the following license(s)' + '\n' +
             `${licJoin}` + '\n' + '\n' +
-
             '## Contributing' + '\n' +
             ` ${answers.coPilot}` + '\n' + '\n' +
-
             '## Tests' + '\n' +
             ` ${answers.tests}` + '\n' + '\n' +
-
             '## Questions' + '\n' +
-
             `Link to this repo:  https://github.com/${answers.gitHub}/${answers.title}` + '\n' + '\n' +
             `Contact me:  ${answers.email}`,
-
             function (err) {
                 if (err) {
                     console.log(err);
@@ -200,12 +182,8 @@ function init() {
                     console.log("Commit logged!");
                 }
             });
-
     }
-
     // function to initialize program
-
 }
-
 // function call to initialize program
 init();
