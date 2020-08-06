@@ -2,3 +2,4 @@ node_modules
 .DS_Store/
 delete_README.md
 test.js
+badges.js

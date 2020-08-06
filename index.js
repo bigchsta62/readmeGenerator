@@ -1,6 +1,15 @@
 const inquirer = require('inquirer');
 const generateMarkdown = require('./utils/generateMarkdown');
 const fs = require('fs');
+const table = [
+    '* [Installation](#installation)' + '\n' +
+    '* [Usage](#usage)' + '\n' +
+    '* [Tests](#tests)' + '\n' +
+    '* [Contributing](#contributing)' + '\n' +
+    '* [Questions](#questions)' + '\n'
+];
+
+
 
 // array of questions for user
 const questions = [
@@ -20,20 +29,16 @@ const questions = [
         message: 'PLease provide a brief description.'
 
     },
-    // {
-    //     name: 'contents',
-    //     type: 'confirm',
-    //     message: 'Do you need a Table of Contents',
-    //     validate: function yes(contents) {
-    //         if (contents === "yes"){
-    //             console.log('Table of awesome')
-    //         }
-    //     }
-    // },
     {
         name: 'install',
-        type: 'input',
-        message: 'How is this installed? (leave blank if not necessary)'
+        type: 'editor',
+        message: 'How is this installed?',
+        validate: function (text) {
+            if (text.split('\n').length < 1) {
+                return 'Must be at least 1 lines.';
+            }
+            return true;
+        },
     },
     {
         name: 'usage',
@@ -48,7 +53,7 @@ const questions = [
             { name: 'MIT License' },
             { name: 'Apache License' },
             { name: 'GPL License' },
-            { name: 'Other License (This will have to entered manually)' },
+            { name: 'Other License' },
             { name: 'NONE' },
         ],
         validate: function (answer) {
@@ -61,29 +66,72 @@ const questions = [
     {
         name: 'contributors',
         type: 'confirm',
-        message: 'Are there any other contributors?'
+        message: 'Are you accepting contributions to this repo?'
     },
     {
         name: 'coPilot',
-        type: 'input',
-        message: 'Please list each contributor separated by a comma',
+        type: 'editor',
+        message: 'Please explain rules for contributing on at least 3 lines',
         when: function (answers) {
             return answers.contributors;
         },
+        validate: function (text) {
+            if (text.split('\n').length < 3) {
+                return 'Must be at least 3 lines.';
+            }
+
+            return true;
+        },
 
     },
+    {
+        name: 'tests',
+        type: 'editor',
+        message: 'What testing has been done',
+        validate: function (text) {
+            if (text.split('\n').length < 1) {
+                return 'Must be at least 1 lines.';
+            }
+            return true;
+        },
+    },
+    {
+        name: 'gitHub',
+        type: 'input',
+        message: 'Please provide your Github username'
 
+    },
+    {
+        name: 'email',
+        type: 'input',
+        message: 'Please provide your email address',
+        validate: function (email) {
 
+            valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
 
+            if (valid) {
+                console.log("Thank you");
+                return true;
+            } else {
+                console.log(".  Please enter a valid email")
+                return false;
+            }
+        },
 
-
+    },
+    {
+        type: 'confirm',
+        name: 'enjoy',
+        message: 'I hope you found this useful (just hit enter for YES)?',
+        default: true,
+    },
 ];
 
 function init() {
     inquirer
         .prompt(questions)
         .then(answers => {
-            console.log(answers.license);
+            // console.log(answers.license);
             // console.log(answers);
             generateMarkdown(answers);
             const fileName = `${answers.title}` + '.md'
@@ -99,41 +147,51 @@ function init() {
         });
     // function to write README file
     function writeToFile(fileName, answers) {
+        const lic = answers.license;
         let licenseBDG = []
-        if (answers.license[0] === 'MIT License'){
-            licenseBDG.push(
-                '[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)') 
-         console.log(licenseBDG);
-        }else{
-            console.log('nerp!');
+        if (lic.includes('MIT License')) {
+            licenseBDG.push('[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)')
         };
+        if (lic.includes('Apache License')) {
+            licenseBDG.push('[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)')
+        };
+        if (lic.includes('GPL License')) {
+            licenseBDG.push('[![GPL license](https://img.shields.io/badge/License-GPL-blue.svg)](http://perso.crans.org/besson/LICENSE.html)')
+        };
+        if (lic.includes('NONE')) {
+            licenseBDG.push('None')            
+        };
+        const licJoin = lic.join(', ');
+
         fs.appendFile(fileName,
-            `# ${answers.title}` +
-            '\n' +
-            licenseBDG +
-            '\n' +
-            `## ${answers.description}` +
-            '\n' +
-            '\n' +
-            `### ${answers.contents}` + 
-            '\n' +
-            '\n' +
-            `### ${answers.install}` +
-            '\n' +
-            '\n' +
-            `### ${answers.usage}` +
-            '\n' +
-            '\n' +
-            `### ${answers.license}` +
-            '\n' +
-            '\n' +
-            `### ${answers.coPilot}` +
-            '\n' +
-            '\n' ,
-            // `### ${answers.tests}`,
-            // '\n' +
-            // '\n' +
-            // `### ${answers.install}`,
+            `# ${answers.title}` + licenseBDG + '\n' + '\n' +
+
+            `## ${answers.description}` + '\n' + '\n' +
+
+            `${table}` + '\n' + '\n' +
+
+            '## Installation' + '\n' +
+            ` ${answers.install}` + '\n' + '\n' +
+
+            '## Usage' + '\n' +
+
+            ` ${answers.usage}` + '\n' + '\n' +
+
+            '## License' + '\n' +
+            'This application is covered under the following license(s)' + '\n' +
+            `${licJoin}` + '\n' + '\n' +
+
+            '## Contributing' + '\n' +
+            ` ${answers.coPilot}` + '\n' + '\n' +
+
+            '## Tests' + '\n' +
+            ` ${answers.tests}` + '\n' + '\n' +
+
+            '## Questions' + '\n' +
+
+            `Link to this repo:  https://github.com/${answers.gitHub}/${answers.title}` + '\n' + '\n' +
+            `Contact me:  ${answers.email}`,
+
             function (err) {
                 if (err) {
                     console.log(err);
