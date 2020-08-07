@@ -157,7 +157,8 @@ function init() {
         //This writes all the answers and formatting to a .md file
         //and will create one if it doesn't exist
         fs.appendFile('README.md',
-            `# ${answers.title}` + licenseBDG + '\n' + '\n' +
+            `# ${answers.title}` + '\n' +
+            licenseBDG + '\n' + '\n' +
             `## ${answers.description}` + '\n' + '\n' +
             `${table}` + '\n' + '\n' +
             '## Installation' + '\n' +
