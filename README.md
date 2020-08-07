@@ -20,7 +20,7 @@
 * Then type cd “repo name” to get to the root directory.
 
 * Copy/Paste the following code: npm init 
- * and follow the prompts to instal the package.json file.
+ * and follow the prompts to install the package.json file.
  
  ![npm init](https://github.com/bigchsta62/readmeGenerator/blob/master/images/npm.jpg?raw=true)
 
