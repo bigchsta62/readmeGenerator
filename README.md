@@ -22,7 +22,7 @@
 * Copy/Paste the following code: npm init 
  * and follow the prompts to instal the package.json file.
 
-* Now type: npm i
+* Now type: npm i inquirer
  * to install npm inquirer.
 
 ### At this point everything is installed to make this function.
