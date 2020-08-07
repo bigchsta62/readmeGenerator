@@ -1,5 +1,5 @@
 const inquirer = require('inquirer');
-const generateMarkdown = require('./utils/generateMarkdown');
+
 const fs = require('fs');
 const table = [
     '* [Installation](#installation)' + '\n' +
@@ -124,10 +124,10 @@ function init() {
         .then(answers => {
             // console.log(answers.license);
             // console.log(answers);
-            generateMarkdown(answers);
-            const fileName = `${answers.title}` + '.md'
+            
+            
             // console.log(fileName);
-            writeToFile(fileName, answers);
+            writeToFile(answers);
         })
         .catch(error => {
             if (error.isTtyError) {
@@ -137,7 +137,7 @@ function init() {
             }
         });
     // function to write README file
-    function writeToFile(fileName, answers) {
+    function writeToFile(answers) {
         const lic = answers.license;
         let licenseBDG = []
         if (lic.includes('MIT License')) {
@@ -156,7 +156,7 @@ function init() {
 
         //This writes all the answers and formatting to a .md file
         //and will create one if it doesn't exist
-        fs.appendFile(fileName,
+        fs.appendFile('README.md',
             `# ${answers.title}` + licenseBDG + '\n' + '\n' +
             `## ${answers.description}` + '\n' + '\n' +
             `${table}` + '\n' + '\n' +
