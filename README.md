@@ -1,4 +1,5 @@
-# readmeGenerator[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+# readmeGenerator
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## This tool will allow you to save time on your README file and focus on your code.
 
@@ -10,10 +11,9 @@
 
 
 ## Installation
+ To install do the following:
 
-To install do the following:
-
-## These step MUST be followed, in order, or the (Command Line Interface) CLI won’t work
+##These step MUST be followed, in order, or the (Command Line Interface) CLI won’t work
 
 * Fork the repo and clone it to your local machine using your terminal.
 
@@ -30,15 +30,13 @@ To install do the following:
 
 ## Usage
  This will be used to reduce the time it takes to write a readme file. 
- You can use it to add to your existing readme or create one from scratch.
-
 
 ## License
 This application is covered under the following license(s)
 MIT License
 
 ## Contributing
- To contribute to this repo please:
+   To contribute to this repo please:
 
 * Fork the repo to your own profile.
 * Test the code and make improvements
@@ -46,11 +44,9 @@ MIT License
 * All feedback is welcome.
 * Share it if you find it useful.
 
-
 ## Tests
  The only testing that has been done is to make the code function at a basic level.
 Input is welcome!
-
 
 ## Questions
 Link to this repo:  https://github.com/bigchsta62/readmeGenerator

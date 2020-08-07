@@ -45,7 +45,7 @@ const questions = [
     {
         name: 'license',
         type: 'checkbox',
-        message: 'Please select a License (use up or down arrow to highlight, then spacebar',
+        message: 'Please select a License',
         choices: [
             { name: 'MIT License' },
             { name: 'Apache License' },
