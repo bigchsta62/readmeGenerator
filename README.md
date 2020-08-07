@@ -13,7 +13,7 @@
 ## Installation
  To install do the following:
 
-##These step MUST be followed, in order, or the (Command Line Interface) CLI won’t work
+##These steps MUST be followed, in order, or the (Command Line Interface) CLI won’t work
 
 * Fork the repo and clone it to your local machine using your terminal.
 
