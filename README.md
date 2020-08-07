@@ -21,14 +21,19 @@
 
 * Copy/Paste the following code: npm init 
  * and follow the prompts to instal the package.json file.
+ 
  ![npm init](https://github.com/bigchsta62/readmeGenerator/blob/master/images/npm.jpg?raw=true)
 
 * Now type: npm i inquirer
  * to install npm inquirer.
+ 
+ 
 ![npm i inquirer](https://github.com/bigchsta62/readmeGenerator/blob/master/images/npm%202.jpg?raw=true)
 ![npm i inquirer](https://github.com/bigchsta62/readmeGenerator/blob/master/images/inquirer.jpg?raw=true)
 
+
 * Then type node index.js and hit enter to follow the prompts
+
 ![cli](https://github.com/bigchsta62/readmeGenerator/blob/master/images/cli.jpg?raw=true)
 
 ### At this point everything is installed to make this function.
